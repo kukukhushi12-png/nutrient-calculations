@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NutriMed - Professional Clinical Nutrition & Nutrient Calculation System">
+    <title>NutriMed | Clinical Nutrition Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Recursive:wght@300..1000&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i data-lucide="activity" class="logo-icon"></i>
+                <span>NutriMed</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-section="home">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </li>
+                <li data-section="patient-info">
+                    <i data-lucide="user"></i>
+                    <span>Patient Info</span>
+                </li>
+                <li data-section="nutrient-calculator">
+                    <i data-lucide="calculator"></i>
+                    <span>Nutrient Calc</span>
+                </li>
+                <li data-section="food-intake">
+                    <i data-lucide="utensils"></i>
+                    <span>Food Intake</span>
+                </li>
+                <li data-section="reports">
+                    <i data-lucide="file-text"></i>
+                    <span>Reports</span>
+                </li>
+                <li data-section="about">
+                    <i data-lucide="info"></i>
+                    <span>About System</span>
+                </li>
+            </ul>
+            <div class="nav-footer">
+                <p>© 2026 NutriMed</p>
+                <small>Clinical Version 1.2.0</small>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard Overview</h1>
+                    <p id="page-subtitle">Welcome back, Specialist.</p>
+                </div>
+                <div class="header-right">
+                    <div class="status-indicator">
+                        <span class="pulse"></span>
+                        System Online
+                    </div>
+                </div>
+            </header>
+
+            <!-- Section: Home -->
+            <section id="home" class="content-section active">
+                <div class="welcome-hero">
+                    <div class="hero-text">
+                        <h2>Precision Nutrition Management</h2>
+                        <p>A comprehensive clinical tool for metabolic calculation, nutrient tracking, and patient reporting.</p>
+                        <button class="btn btn-primary" onclick="switchSection('patient-info')">Start New Assessment</button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <i data-lucide="users" class="stat-icon icon-blue"></i>
+                        <div class="stat-info">
+                            <span class="stat-value">Active Sessions</span>
+                            <span class="stat-label">System is ready for assessment.</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i data-lucide="clipboard-check" class="stat-icon icon-green"></i>
+                        <div class="stat-info">
+                            <span class="stat-value">Validated Algorithms</span>
+                            <span class="stat-label">Mifflin-St Jeor & Harris-Benedict.</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i data-lucide="database" class="stat-icon icon-purple"></i>
+                        <div class="stat-info">
+                            <span class="stat-value">Local Processing</span>
+                            <span class="stat-label">Secure patient data management.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Patient Info -->
+            <section id="patient-info" class="content-section">
+                <div class="card patient-form-card">
+                    <div class="card-header">
+                        <h3><i data-lucide="user-plus"></i> Patient Admission Data</h3>
+                    </div>
+                    <form id="patient-form" class="medical-form">
+                        <div class="form-grid">
+                            <div class="form-group grid-full">
+                                <label for="name">Patient Full Name</label>
+                                <input type="text" id="name" placeholder="E.g., John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age (years)</label>
+                                <input type="number" id="age" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Sex Assigned at Birth</label>
+                                <select id="gender" required>
+                                    <option value="" disabled selected>Select Sex</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Weight (kg)</label>
+                                <input type="number" id="weight" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="height">Height (cm)</label>
+                                <input type="number" id="height" step="0.1" required>
+                            </div>
+                            <div class="form-group grid-full">
+                                <label for="activity">Physical Activity Level</label>
+                                <select id="activity" required>
+                                    <option value="1.2">Sedentary (Office job, little/no exercise)</option>
+                                    <option value="1.375">Lightly Active (1-3 days exercise/week)</option>
+                                    <option value="1.55">Moderately Active (3-5 days exercise/week)</option>
+                                    <option value="1.725">Very Active (6-7 days exercise/week)</option>
+                                    <option value="1.9">Extremely Active (Physical job + heavy training)</option>
+                                </select>
+                            </div>
+                            <div class="form-group grid-full">
+                                <label for="condition">Medical Condition / Notes (Optional)</label>
+                                <textarea id="condition" rows="3" placeholder="Enter relevant clinical notes..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Process Bio-Data</button>
+                            <button type="reset" class="btn btn-secondary">Clear Fields</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Section: Nutrient Calculator -->
+            <section id="nutrient-calculator" class="content-section">
+                <div class="calculator-layout">
+                    <div class="calc-results-main">
+                        <div class="result-tile">
+                            <span class="tile-label">BMI Score</span>
+                            <span id="res-bmi" class="tile-value">--</span>
+                            <span id="res-bmi-status" class="status-tag">No Data</span>
+                        </div>
+                        <div class="result-tile">
+                            <span class="tile-label">BMR (Mifflin-St Jeor)</span>
+                            <span id="res-bmr" class="tile-value">--</span>
+                            <span class="tile-unit">kcal/day</span>
+                        </div>
+                        <div class="result-tile highlight">
+                            <span class="tile-label">TDEE (Maintenance)</span>
+                            <span id="res-tdee" class="tile-value">--</span>
+                            <span class="tile-unit">kcal/day</span>
+                        </div>
+                    </div>
+
+                    <div class="macro-distribution">
+                        <h3>Recommended Macronutrient Partitioning</h3>
+                        <div class="macro-grid">
+                            <div class="macro-card carb">
+                                <div class="macro-header">
+                                    <i data-lucide="wheat"></i>
+                                    <span>Carbohydrates (50%)</span>
+                                </div>
+                                <div class="macro-value"><span id="macro-carbs">0</span>g</div>
+                            </div>
+                            <div class="macro-card protein">
+                                <div class="macro-header">
+                                    <i data-lucide="beef"></i>
+                                    <span>Protein (20%)</span>
+                                </div>
+                                <div class="macro-value"><span id="macro-protein">0</span>g</div>
+                            </div>
+                            <div class="macro-card fat">
+                                <div class="macro-header">
+                                    <i data-lucide="droplet"></i>
+                                    <span>Fats (30%)</span>
+                                </div>
+                                <div class="macro-value"><span id="macro-fats">0</span>g</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Food Intake -->
+            <section id="food-intake" class="content-section">
+                <div class="food-input-panel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i data-lucide="plus-circle"></i> Log Food Intake</h3>
+                        </div>
+                        <form id="food-form" class="medical-form inline-form">
+                            <input type="text" id="food-name" placeholder="Food item (e.g. Chicken Breast)" required>
+                            <input type="number" id="food-calories" placeholder="Calories (kcal)" required>
+                            <input type="number" id="food-protein" placeholder="Protein (g)" required>
+                            <input type="number" id="food-carbs" placeholder="Carbs (g)" required>
+                            <input type="number" id="food-fats" placeholder="Fats (g)" required>
+                            <button type="submit" class="btn btn-primary"><i data-lucide="plus"></i> Add</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="food-table-container">
+                    <table class="clinical-table">
+                        <thead>
+                            <tr>
+                                <th>Food Item</th>
+                                <th>Calories (kcal)</th>
+                                <th>Protein (g)</th>
+                                <th>Carbs (g)</th>
+                                <th>Fats (g)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="food-list">
+                            <!-- Injected by JS -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td>Daily Totals:</td>
+                                <td id="total-kcal">0</td>
+                                <td id="total-protein">0</td>
+                                <td id="total-carbs">0</td>
+                                <td id="total-fats">0</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: Reports -->
+            <section id="reports" class="content-section">
+                <div class="reports-container" id="report-printable">
+                    <div class="report-header">
+                        <div class="report-logo">
+                            <i data-lucide="activity"></i>
+                            <span>NutriMed Analysis Report</span>
+                        </div>
+                        <div class="report-meta">
+                            <p>Date: <span id="report-date">--</span></p>
+                            <p>Report ID: #NM-<span id="report-id">--</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="report-body">
+                        <div class="report-section">
+                            <h4>I. Patient Summary</h4>
+                            <div class="summary-grid" id="report-patient-summary">
+                                <p>No assessment completed yet.</p>
+                            </div>
+                        </div>
+
+                        <div class="report-section">
+                            <h4>II. Metabolic Profile</h4>
+                            <div class="summary-grid" id="report-metabolic-summary">
+                                <p>--</p>
+                            </div>
+                        </div>
+
+                        <div class="report-section">
+                            <h4>III. Nutritonal Intake Analysis</h4>
+                            <div class="report-intake-stat">
+                                <p>Total Caloric Consumption: <span id="report-total-kcal">0 kcal</span></p>
+                                <p>Status vs TDEE Target: <span id="report-intake-status">--</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="report-footer">
+                        <p>This report was generated by NutriMed Clinical Nutrition System.</p>
+                        <p>Disclaimer: This is a computational tool. Final clinical decisions must be made by qualified healthcare professionals.</p>
+                    </div>
+                </div>
+                <div class="report-actions">
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i data-lucide="printer"></i> Print Report
+                    </button>
+                    <button class="btn btn-primary" id="download-report">
+                        <i data-lucide="download"></i> Download PDF (Simulated)
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section: About -->
+            <section id="about" class="content-section">
+                <div class="about-card">
+                    <h2>About NutriMed</h2>
+                    <p>NutriMed is a state-of-the-art clinical nutrition management system designed for dietitians and healthcare providers. It provides automated calculations for metabolic baseline (BMR) and total energy expenditure (TDEE) using peer-reviewed physiological equations.</p>
+                    
+                    <h3>Compliance & Algorithms</h3>
+                    <ul>
+                        <li><strong>Mifflin-St Jeor Equation:</strong> Current gold standard for non-obese and obese adults.</li>
+                        <li><strong>Harris-Benedict:</strong> Classic clinical metabolic estimation.</li>
+                        <li><strong>WHO/FAO Standards:</strong> Activity factor multipliers based on official healthcare guidelines.</li>
+                    </ul>
+
+                    <h3>System Version</h3>
+                    <p>NutriMed Core Engine v1.2.0 (Stable)</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
