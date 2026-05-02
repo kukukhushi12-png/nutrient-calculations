@@ -271,3 +271,82 @@ document.getElementById('download-report').addEventListener('click', () => {
 
 // Initialize first view
 switchSection('home');
+
+// --- Chatbot Logic ---
+const chatbotToggler = document.querySelector('.chatbot-toggler');
+const closeChatbot = document.querySelector('.close-chatbot');
+const chatbotContainer = document.querySelector('.chatbot-container');
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
+const chatMessages = document.getElementById('chat-messages');
+
+// Toggle chat window
+chatbotToggler.addEventListener('click', () => {
+    chatbotContainer.classList.add('active');
+    chatInput.focus();
+});
+
+closeChatbot.addEventListener('click', () => {
+    chatbotContainer.classList.remove('active');
+});
+
+// NutriBot Knowledge Base
+const responses = {
+    greetings: ["Hello! I'm NutriBot. How can I assist you with clinical nutrition today?", "Hi there! Need help calculating BMI, BMR, or TDEE?"],
+    bmi: ["BMI (Body Mass Index) is a simple index of weight-for-height. You can calculate it in the 'Patient Info' section.", "To check your BMI status, please fill out the Patient Admission Form first!"],
+    bmr: ["BMR (Basal Metabolic Rate) is the number of calories required to keep your body functioning at rest. We use the Mifflin-St Jeor equation by default.", "Need to calculate BMR? Go to Patient Info and enter your details."],
+    tdee: ["TDEE (Total Daily Energy Expenditure) multiplies your BMR by your activity level to estimate total calories burned.", "TDEE helps you understand how many calories you need to maintain your weight."],
+    food: ["You can log your food intake in the 'Food Intake' section to track your macros.", "To add food items, navigate to the Food Intake Log and enter the item's nutritional details."],
+    report: ["You can generate a clinical report of the patient's nutritional assessment in the 'Reports' section.", "Finished with the calculations? Check the 'Reports' tab for a printable summary."],
+    default: ["I'm a simple clinical assistant. You can ask me about BMI, BMR, TDEE, logging food, or generating reports.", "I'm sorry, I didn't catch that. Try asking about BMR, TDEE, or BMI calculations."]
+};
+
+const getBotResponse = (message) => {
+    const text = message.toLowerCase();
+    
+    if (text.includes('hi') || text.includes('hello') || text.includes('hey')) {
+        return responses.greetings[Math.floor(Math.random() * responses.greetings.length)];
+    } else if (text.includes('bmi')) {
+        return responses.bmi[Math.floor(Math.random() * responses.bmi.length)];
+    } else if (text.includes('bmr')) {
+        return responses.bmr[Math.floor(Math.random() * responses.bmr.length)];
+    } else if (text.includes('tdee') || text.includes('calorie') || text.includes('energy')) {
+        return responses.tdee[Math.floor(Math.random() * responses.tdee.length)];
+    } else if (text.includes('food') || text.includes('diet') || text.includes('eat')) {
+        return responses.food[Math.floor(Math.random() * responses.food.length)];
+    } else if (text.includes('report') || text.includes('print')) {
+        return responses.report[Math.floor(Math.random() * responses.report.length)];
+    } else {
+        return responses.default[Math.floor(Math.random() * responses.default.length)];
+    }
+};
+
+const createMessageElement = (text, type) => {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', `${type}-message`);
+    
+    const msgText = document.createElement('div');
+    msgText.classList.add('msg-text');
+    msgText.textContent = text;
+    
+    messageDiv.appendChild(msgText);
+    return messageDiv;
+};
+
+chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = chatInput.value.trim();
+    if (!message) return;
+    
+    // Add user message
+    chatMessages.appendChild(createMessageElement(message, 'user'));
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Add bot response with slight delay
+    setTimeout(() => {
+        const botResponseText = getBotResponse(message);
+        chatMessages.appendChild(createMessageElement(botResponseText, 'bot'));
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 600);
+});

@@ -328,6 +328,29 @@
         </main>
     </div>
 
+    <!-- Chatbot Widget -->
+    <button class="chatbot-toggler">
+        <i data-lucide="message-square"></i>
+    </button>
+    <div class="chatbot-container">
+        <header class="chatbot-header">
+            <div class="chatbot-title">
+                <i data-lucide="bot"></i>
+                <span>NutriBot Assistant</span>
+            </div>
+            <button class="close-chatbot"><i data-lucide="x"></i></button>
+        </header>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                <div class="msg-text">Hello! I am NutriBot, your clinical assistant. How can I help you today?</div>
+            </div>
+        </div>
+        <form class="chat-input-form" id="chat-form">
+            <input type="text" id="chat-input" placeholder="Type a message..." required>
+            <button type="submit" class="send-btn"><i data-lucide="send"></i></button>
+        </form>
+    </div>
+
     <!-- JavaScript -->
     <script src="script.js"></script>
     <script>
